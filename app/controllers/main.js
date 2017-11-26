@@ -8,7 +8,7 @@ module.exports = function(app) {
 	app.get('/', function(req, res) {
 
 		db.Article
-			.find({}, null)
+			.find({})
 			.then(function(dbArticle) {
 				res.render('index', { data: dbArticle});
 			});
@@ -21,28 +21,28 @@ module.exports = function(app) {
 
 			let $ = cheerio.load(body);
 
-			// $('.entry-title').each(function(i, element) {
-			// 	if (i < 1) {
-			// 		let results = {
-			// 			"title": $(this).a.text(),
-			// 			"link": $(this).a.attribs.href
-			// 		}
+			$('.entry-title').each(function() {
+				let results = {
+					"title": $(this).a.text(),
+					"link": $(this).a.attribs.href
+				}
 
-			// 		db.Article
-			// 			.create(results)
-			// 			.then(function(dbArticle) {
-			// 				console.log("saved to db");
-			// 			})
-			// 			.catch(function(err) {
-			// 				console.log('ERR');
-			// 			});
-			// 	}
-			// });
+				db.Article
+					.create(results)
+					.then(function(dbArticle) {
+						console.log("saved to db");
+					})
+					.catch(function(err) {
+						console.log('ERR');
+					});
+			});
 			res.redirect('back');
 			// console.log(res);
 		});
 	});
 
+
+	// TODO: DELETE
 	// app.post("/delete", (req, res) {
 	// 	//code
 	// });
