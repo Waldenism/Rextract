@@ -1,0 +1,17 @@
+{{#if data}}
+  <h4>Title: {{ data.title }}</h4>
+  <p>Link: {{ data.link}}</p>
+  <p id="note-id" data-id="{{data._id}}">{{ data._id }}</p>
+
+  <p>Note: {{ data.notes.text }}</p>
+
+{{/if}}
+
+
+<input class="input" type="text" id="note-input" name="note" placeholder="Leave a note"></input>
+
+<button id="note-submit" class="button is-success">Submit</button>
+<a href="/">Back</a>
+
+<div id="note">
+</div>

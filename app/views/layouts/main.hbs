@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title>Rextract</title>
+	<link rel='stylesheet' type="text/css" herf='/assets/css/style.css'>
+	<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+
+</head>
+
+<body>
+
+	<h1>Rextract News Scraper</h1>
+
+	<br>
+
+	<form action="/" method="POST">
+		<button id="scrape-button">Get Articles</button>
+	</form>
+
+	<form action="/delete" method="POST">
+		<button id="delete-articles">
+			Delete Articles
+		</button>
+	</form>
+
+	{{{body}}}
+	
+	<script type="text/javascript" src="/assets/js/app.js"></script>
+</body>
+</html>
