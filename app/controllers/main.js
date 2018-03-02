@@ -1,81 +1,52 @@
-const db = require('../models');
-const cheerio = require("cheerio");
-const request = require("request");
+const db = require('../models')
+const cheerio = require('cheerio')
+const request = require('request')
 
-module.exports = function(app) {
+module.exports = function (app) {
 
+  app.get('/', function (req, res) {
+    db.Article
+      .find({})
+      .then(function (dbArticle) {
+        res.render('index', {data: dbArticle})
+      })
+  })
 
-	app.get('/', function(req, res) {
+  app.post('/', function (req, res) {
+    request('https://mynintendonews.com/', function (error, response, body) {
+      if (error) throw error
 
-		db.Article
-			.find({})
-			.then(function(dbArticle) {
-				res.render('index', { data: dbArticle});
-			});
-	});
+      let $ = cheerio.load(body)
 
-	app.post('/', function(req, res) {
+      let results = []
 
-		request('https://mynintendonews.com/', function(error, response, body) {
-			if (error) throw error;
+      $('.entry-title').each(function(i, element) {
+        let title = $(element).text()
 
-			let $ = cheerio.load(body);
+        let link = $(element).children().attr('href')
 
-			// $('.entry-title').each(function() {
-			// 	let results = {
-			// 		"title": $(this).a.text(),
-			// 		"link": $(this).a.attribs.href
-			// 	}
+        results.push({
+          title: title,
+          link: link
+        })
+      })
 
-			// 	db.Article
-			// 		.create(results)
-			// 		.then(function(dbArticle) {
-			// 			console.log("saved to db");
-			// 		})
-			// 		.catch(function(err) {
-			// 			console.log('ERR');
-			// 		});
-			// });
-			// res.redirect('back');
-			// // console.log(res);
+      // console.log(results)
 
-			var results = [];
+      db.Article
+        .create(results)
+        .then(function(dbArticle) {
+          console.log('saved to db')
+        })
+        .catch(function (err) {
+          console.log('ERR')
+        })
 
-		    $(".entry-title").each(function(i, element) {
+      res.redirect('back')
+    })// close request
+  })// close post
 
-			  var title = $(element).text();
-
-			  var link = $(element).children().attr("href");
-
-			  results.push({
-			    title: title,
-			    link: link
-			  });
-
-			});
-
-			console.log(results);
-
-			db.Article
-				.create(results)
-				.then(function(dbArticle) {
-					console.log("saved to db");
-				})
-				.catch(function(err) {
-					console.log('ERR');
-				});
-				
-		res.redirect('back');
-		});//close request
-
-	});//close post
-
-
-	// TODO: DELETE
-	// app.post("/delete", (req, res) {
-	// 	//code
-	// });
-
-
-}; //close exports
-
+  app.post("/delete", function(req, res) {
+  	console.log(req.body.id)
+  })
+}

@@ -2,7 +2,10 @@
 <html lang="en">
 <head>
 	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>Rextract</title>
+	<!-- Bulma -->
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.6.1/css/bulma.css">
 	<link rel='stylesheet' type="text/css" herf='/assets/css/style.css'>
 	<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 
@@ -10,22 +13,40 @@
 
 <body>
 
-	<h1>Rextract News Scraper</h1>
-
-	<br>
-
-	<form action="/" method="POST">
-		<button id="scrape-button">Get Articles</button>
-	</form>
-
-	<form action="/delete" method="POST">
-		<button id="delete-articles">
-			Delete Articles
-		</button>
-	</form>
+	<section class="section">
+		<nav class="navbar">
+			<div class="navbar-brand">
+				<div class="navbar-item title">
+					Mongo Scraper
+				</div>
+				<div class="navbar-burger">
+					<span></span>
+				  <span></span>
+				  <span></span>
+				</div>
+			</div>
+			<div class="navbar-menu">
+				<div class="navbar-start">
+					<a class="navbar-item">
+					  Home
+					</a>
+					<a class="navbar-item">
+					  Saved Articles
+					</a>
+			  </div>
+			  <div class="navbar-end">
+			  	<form action="/" method="POST">
+						<button class="scrape-button">
+							Get Articles
+						</button>
+					</form>
+			  </div>
+			</div>
+		</nav>
+	</section>
 
 	{{{body}}}
 	
-	<script type="text/javascript" src="/assets/js/app.js"></script>
+	<script type="text/javascript" src="/assets/js/index.js"></script>
 </body>
 </html>

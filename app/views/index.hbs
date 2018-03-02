@@ -1,31 +1,35 @@
-{{#if data}}
-  <table class="table">
-    <thead>
-      <tr>
-        <th>#</th>
-        <th>Title</th>
-        <th>Actions</th>
-      </tr>
-    </thead>
-    <tbody>
-      {{#each data}}
-        <tr>
-          <td>
-            {{ inc @index }}.
-          </td>
-          <td>
-            <a href="{{ this.link }}" target="_blank">
-              {{ this.title }}
-            </a>
-          </td>
-          <td>
-            <i data-id="{{ this._id }}" class=" edit-article"></i>
-            <i data-id="{{ this._id }}" class="delete-article"></i>
-          </td>
-        </tr>
-      {{/each}}
-    </tbody>
-  </table>
-{{else}}
-  <h5>No articles yet, go scrape some</h5>
-{{/if}}
+<section class="section">
+  <div class="container">
+    {{#if data}}
+      <table class="table">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Title</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          {{#each data}}
+            <tr>
+              <td>
+                {{ inc @index }}.
+              </td>
+              <td>
+                <a href="{{ this.link }}" target="_blank">
+                  {{ this.title }}
+                </a>
+              </td>
+              <td>
+                <button data-id="{{ this._id }}" class="edit-article"></button>
+                <button data-id="{{ this._id }}" class="delete-article">delete</button>
+              </td>
+            </tr>
+          {{/each}}
+        </tbody>
+      </table>
+    {{else}}
+      <h5>No articles yet, go scrape some</h5>
+    {{/if}}
+  </div>
+</section>
